@@ -1,2 +1,2 @@
-# NEO4J BBDD-delivery-managment-system
- NEO4J is a non-relational graph oriented database
+# NEO4J BBDD-shipments-manage-system
+ A shipments manage system made with python and NEO4J.
