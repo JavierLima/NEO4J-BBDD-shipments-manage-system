@@ -1,13 +1,16 @@
+//Create the nodes of type city with only the name
 CREATE (Madrid:ciudad {nombre:"Madrid"}),(Barcelona:ciudad {nombre:"Barcelona"})
 CREATE (Londres:ciudad {nombre:"Londres"}),(NY:ciudad {nombre:"NY"})
 CREATE (Pekin:ciudad {nombre:"Pekin"}),(Bogota:ciudad {nombre:"Bogota"})
 CREATE (Amsterdam:ciudad {nombre:"Amsterdam"}),(Tokio:ciudad {nombre:"Tokio"})
 
+//Create the nodes of type suplier with the name, a list of the products that they sell, the billing, the finished shipments and on going shipments
 CREATE (Carrefour:proveedor{nombre:"Carrefour", productos:['PUMA', 'ADIDAS','FILA'],  facturacion: 0, envios_realizados:0,envios_sin_entregar:0})
 CREATE (Macys:proveedor{nombre:"Macys",productos:['VANS', 'NIKE','JORDAN'],  facturacion: 0,envios_realizados:0,envios_sin_entregar:0})
 CREATE (Quiksilver:proveedor{nombre:"Quiksilver",productos:['CONVERSE', 'DC','HAVAIANAS'], facturacion: 0,envios_realizados:0,envios_sin_entregar:0})
 
-
+//Create the nodes of type warehouse with only the name, the warehouse name is formed by a prefix "A_" indicating it is a warehouse 
+//and the name of the city where it is located
 CREATE (A_Madrid:almacen {nombre:"A_Madrid"})
 CREATE (A_Londres:almacen {nombre:"A_Londres"})
 CREATE (A_NY:almacen {nombre:"A_NY"})
@@ -15,6 +18,7 @@ CREATE (A_Pekin:almacen {nombre:"A_Pekin"})
 CREATE (A_Bogota:almacen {nombre:"A_Bogota"})
 CREATE (A_Amsterdam:almacen {nombre:"A_Amsterdam"})
 
+//Create the relationship between the warehouses and the supliers
 CREATE (A_Madrid)-[:union_proveedor]->(Carrefour)
 CREATE (A_Londres)-[:union_proveedor]->(Carrefour)
 CREATE (A_Pekin)-[:union_proveedor]->(Macys)
@@ -22,6 +26,7 @@ CREATE (A_Amsterdam)-[:union_proveedor]->(Macys)
 CREATE (A_NY)-[:union_proveedor]->(Quiksilver)
 CREATE (A_Bogota)-[:union_proveedor]->(Quiksilver)
 
+//Create the relationship between the warehouses and the cities
 CREATE (A_Madrid)-[:union_almacen]->(Madrid)
 CREATE (A_Londres)-[:union_almacen]->(Londres)
 CREATE (A_Pekin)-[:union_almacen]->(Pekin)
@@ -29,7 +34,11 @@ CREATE (A_Amsterdam)-[:union_almacen]->(Amsterdam)
 CREATE (A_NY)-[:union_almacen]->(NY)
 CREATE (A_Bogota)-[:union_almacen]->(Bogota)
 
-
+//Create the relationship between the cities, the relationship contains the cost of the travel and the time it takes(values are not real), there are four types of relationship:
+//	-carretera: by car
+//      -ferrocarril: by train
+//	-maritimo: by ship
+//	-aereo: by plane 
 CREATE (Madrid)-[:carretera {coste:6,tiempo:360}]->(Barcelona)
 CREATE (Madrid)-[:ferrocarril {coste:4.8,tiempo:300}]->(Barcelona)
 CREATE (Madrid)-[:aereo {coste:21,tiempo:60}]->(Barcelona)
